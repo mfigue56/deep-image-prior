@@ -58,28 +58,28 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
         enforse_div32: if 'CROP' center crops an image, so that its dimensions are divisible by 32.
     '''
     img_orig_pil, img_orig_np = get_image(fname, -1)
-    img_orig_pil = transform_image_to_kspace(img_orig_pil)  #change made by marcos
-    img_orig_np = transform_image_to_kspace(img_orig_np)    #this one too
+    img_orig_pilk = transform_image_to_kspace(img_orig_pil)  #change made by marcos
+    img_orig_npk = transform_image_to_kspace(img_orig_np)    #this one too
 
     if imsize != -1:
         img_orig_pil, img_orig_np = get_image(fname, imsize)
         
     # For comparison with GT
     if enforse_div32 == 'CROP':
-        new_size = (img_orig_pil.size[0] - img_orig_pil.size[0] % 32, 
-                    img_orig_pil.size[1] - img_orig_pil.size[1] % 32)
+        new_size = (img_orig_pilk.size[0] - img_orig_pilk.size[0] % 32, 
+                    img_orig_pilk.size[1] - img_orig_pilk.size[1] % 32)
 
         bbox = [
-                (img_orig_pil.size[0] - new_size[0])/2, 
-                (img_orig_pil.size[1] - new_size[1])/2,
-                (img_orig_pil.size[0] + new_size[0])/2,
-                (img_orig_pil.size[1] + new_size[1])/2,
+                (img_orig_pilk.size[0] - new_size[0])/2, 
+                (img_orig_pilk.size[1] - new_size[1])/2,
+                (img_orig_pilk.size[0] + new_size[0])/2,
+                (img_orig_pilk.size[1] + new_size[1])/2,
         ]
 
-        img_HR_pil = img_orig_pil.crop(bbox)
+        img_HR_pil = img_orig_pilk.crop(bbox)
         img_HR_np = pil_to_np(img_HR_pil)
     else:
-        img_HR_pil, img_HR_np = img_orig_pil, img_orig_np
+        img_HR_pil, img_HR_np = img_orig_pilk, img_orig_npk
         
     LR_size = [
                img_HR_pil.size[0] // factor, 
@@ -92,8 +92,8 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     print('HR and LR resolutions: %s, %s' % (str(img_HR_pil.size), str (img_LR_pil.size)))
 
     return {
-                'orig_pil': img_orig_pil,
-                'orig_np':  img_orig_np,
+                'orig_pil': img_orig_pilk,
+                'orig_np':  img_orig_npk,
                 'LR_pil':  img_LR_pil, 
                 'LR_np': img_LR_np,
                 'HR_pil':  img_HR_pil, 
