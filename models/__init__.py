@@ -5,7 +5,7 @@ from .unet import UNet
 
 import torch.nn as nn
 
-def get_net(input_depth, NET_TYPE, pad, upsample_mode, n_channels=1, act_fun='LeakyReLU', skip_n33d=128, skip_n33u=128, skip_n11=4, num_scales=5, downsample_mode='stride'):
+def get_net(input_depth, NET_TYPE, pad, upsample_mode, n_channels=3, act_fun='LeakyReLU', skip_n33d=128, skip_n33u=128, skip_n11=4, num_scales=5, downsample_mode='stride'):
     if NET_TYPE == 'ResNet':
         # TODO
         net = ResNet(input_depth, 3, 10, 16, 1, nn.BatchNorm2d, False)
