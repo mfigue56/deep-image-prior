@@ -14,17 +14,17 @@ def get_noisy_image(path_to_image, img_np, sigma):
 
     #Marcos Additions
     ##transform image to k-space (Fourier Transfrom)
-    im = mpimg.imread(path_to_image)
-    x = im[::2,::2,0]
-    y = np.fft.fft2(x)
-    clim = np.quantile(np.abs(y.reshape(-1)), [0.01,0.99])
+    #im = mpimg.imread(path_to_image)
+    #x = im[::2,::2,0]
+    #y = np.fft.fft2(x)
+    #clim = np.quantile(np.abs(y.reshape(-1)), [0.01,0.99])
     #zero padding
-    y = np.fft.fftshift(y)
-    z = np.fft.ifft2(y, s=im.shape[:2]) #zero padded ifft
-    clim = np.quantile(np.abs(z.reshape(-1)),[0.01,0.99])
+    #y = np.fft.fftshift(y)
+    #z = np.fft.ifft2(y, s=im.shape[:2]) #zero padded ifft
+    #clim = np.quantile(np.abs(z.reshape(-1)),[0.01,0.99])
     
-    #changed img_np to clim
-    img_noisy_np = np.clip(clim + np.random.normal(scale=sigma, size=clim.shape), 0, 1).astype(np.float32)
+    #changed img_np to clim (undone)
+    img_noisy_np = np.clip(img_np + np.random.normal(scale=sigma, size=img_np.shape), 0, 1).astype(np.float32)
     img_noisy_pil = np_to_pil(img_noisy_np)
 
     return img_noisy_pil, img_noisy_np
