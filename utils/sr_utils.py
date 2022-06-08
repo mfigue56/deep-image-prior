@@ -73,7 +73,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     #img_LR_np = pil_to_np(img_LR_pil)
     
     ######Changes by Marcos#####
-    ft = np.fft.fftshift(np.fft.fft2(im1))
+    ft = np.fft.fftshift(np.fft.fft2(img_orig_np))
     H,W = (ft.shape)
     F = factor  #factor
     h = int(H/F)
