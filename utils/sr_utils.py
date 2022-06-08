@@ -1,5 +1,6 @@
 from .common_utils import *
 from PIL import Image, ImageSequence
+import operator
 
 
 def put_in_center(img_np, target_size):
