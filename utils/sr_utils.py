@@ -1,4 +1,6 @@
 from .common_utils import *
+from PIL import Image, ImageSequence
+
 
 def put_in_center(img_np, target_size):
     img_out = np.zeros([3, target_size[0], target_size[1]])
@@ -14,7 +16,11 @@ def put_in_center(img_np, target_size):
     
     return img_out
 
-
+def cropND(img, bounding):
+    start = tuple(map(lambda a, da: a//2-da//2, img.shape, bounding))
+    end = tuple(map(operator.add, start, bounding))
+    slices = tuple(map(slice, start, end))
+    return img[slices]
 
 def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     '''Loads an image, resizes it, center crops and downscales.
@@ -26,7 +32,17 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
         enforse_div32: if 'CROP' center crops an image, so that its dimensions are divisible by 32.
     '''
     img_orig_pil, img_orig_np = get_image(fname, -1)
+    ######Marcos Changes#######
+    img = Image.open(fname)
+    imgs_arr = []
 
+    for frame in ImageSequence.Iterator(img):
+        imgs_arr.append(np.array(frame.convert('L'))[80:200, 30:150])
+
+    imgs_arr = np.array(imgs_arr)/256
+    im1 = imgs_arr[0]
+    #######Marcos Changed^##########
+    
     if imsize != -1:
         img_orig_pil, img_orig_np = get_image(fname, imsize)
         
@@ -52,8 +68,24 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
                img_HR_pil.size[1] // factor
     ]
 
-    img_LR_pil = img_HR_pil.resize(LR_size, Image.ANTIALIAS)
-    img_LR_np = pil_to_np(img_LR_pil)
+    #img_LR_pil = img_HR_pil.resize(LR_size, Image.ANTIALIAS)
+    #img_LR_np = pil_to_np(img_LR_pil)
+    
+    ######Changes by Marcos#####
+    ft = np.fft.fftshift(np.fft.fft2(im1))
+    H,W = (ft.shape)
+    F = factor  #factor
+    h = int(H/F)
+    w = int(W/F)
+    a =int((H-h)/F)
+    b =int((W-w)/F)
+    
+    #cropping, padding, and inversing
+    ftcrop = cropND(ft, (h,w)) #crops the array
+    ftpad = np.pad(ftcrop, ([a,a],[b,b]), mode='constant', constant_values=0) #fills the rest of the array with zeroes 
+    ift = np.abs(np.fft.ifft2(ftpad)) #inverse transfrom
+    img_LR_np = ift
+    ######### Changed by Marcos ^#######
 
     print('HR and LR resolutions: %s, %s' % (str(img_HR_pil.size), str (img_LR_pil.size)))
 
