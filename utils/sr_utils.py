@@ -35,7 +35,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     img_orig_pil, img_orig_np = get_image(fname, -1)
     ######Marcos Changes#######
     img = Image.open(fname)
-    img = im.convert('P')
+    img = img.convert('P')
     imgs_arr = []
 
     for frame in ImageSequence.Iterator(img):
