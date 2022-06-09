@@ -106,6 +106,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
 
 def get_baselines(img_LR_pil, img_HR_pil):
     '''Gets `bicubic`, sharpened bicubic and `nearest` baselines.'''
+    img_LR_pil = sum(img_LR_pil)  #convert tuple to integer?
     img_bicubic_pil = img_LR_pil.resize(img_HR_pil.size, Image.BICUBIC)
     img_bicubic_np = pil_to_np(img_bicubic_pil)
 
