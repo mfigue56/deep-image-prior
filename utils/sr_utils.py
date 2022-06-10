@@ -87,10 +87,9 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     ftcrop = cropND(ft, (h,w)) #crops the array
     ftpad = np.pad(ftcrop, ([b,b],[a,a]), mode='constant', constant_values=0) #fills the rest of the array with zeroes 
     ift = np.abs(np.fft.ifft2(ftcrop)) #inverse transfrom
-    #img_LR_np = np.expand_dims(ift, axis=0)
-    img_LR_pil = (ift)
-    #img_LR_pil = np_to_pil(img_LR_np)
-    img_LR_np = pil_to_np(img_LR_pil)
+    img_LR_np = np.expand_dims(ift, axis=0)
+    img_LR_pil = np_to_pil(img_LR_np)
+    #img_LR_np = pil_to_np(img_LR_pil)
     ######### Changed by Marcos ^#######
 
     print('HR and LR resolutions: %s, %s' % (str(img_HR_pil.size), str (img_LR_pil.size)))
