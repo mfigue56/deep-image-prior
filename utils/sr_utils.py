@@ -86,7 +86,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     
     #cropping, padding, and inversing
     ftcrop = cropND(ft, (h,w,c)) #crops the array
-    ftpad = np.pad(ftcrop, ([b,b],[a,a]), mode='constant', constant_values=0) #fills the rest of the array with zeroes 
+    #ftpad = np.pad(ftcrop, ([b,b],[a,a]), mode='constant', constant_values=0) #fills the rest of the array with zeroes 
     ift = np.abs(np.fft.ifft2(ftcrop)) #inverse transfrom
     img_LR_np = np.expand_dims(ift, axis=0)
     #img_LR_pil = np_to_pil(img_LR_np)
