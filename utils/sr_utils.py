@@ -70,7 +70,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
                img_HR_pil.size[1] // factor
     ]
 
-    #img_LR_pil = img_HR_pil.resize(LR_size, Image.ANTIALIAS)
+    img_LR_pil = img_HR_pil.resize(LR_size, Image.ANTIALIAS)
     #img_LR_np = pil_to_np(img_LR_pil)
     
     
@@ -92,7 +92,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     ift = np.abs(np.fft.ifft2(ftcrop)) #inverse transfrom
     #img_LR_np = np.expand_dims(ift, axis=0)
     img_LR_np = ift
-    img_LR_pil = np_to_pil(img_LR_np)
+    #img_LR_pil = np_to_pil(img_LR_np)
     #img_LR_np = pil_to_np(img_LR_pil)
     ######### Changed by Marcos ^#######
 
