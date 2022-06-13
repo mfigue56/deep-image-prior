@@ -64,7 +64,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     
     
     ######Changes by Marcos#####
-    ft = np.fft.fftshift(np.fft.fft2(img_orig_np)) #img
+    ft = np.fft.fftshift(np.fft.fft2(img_orig_np, norm = "forward")) #img
     C,H,W = (ft.shape)
     
     F = factor  #factor
@@ -78,7 +78,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     #cropping, padding, and inversing
     ftcrop = cropND(ft, (c,h,w)) #crops the array
     #ftpad = np.pad(ftcrop, ([b,b],[a,a]), mode='constant', constant_values=0) #fills the rest of the array with zeroes 
-    ift = np.abs(np.fft.ifft2(ftcrop)) #inverse transfrom
+    ift = np.abs(np.fft.ifft2(ftcrop,norm='forward')) #inverse transfrom
     #img_LR_np = np.expand_dims(ift, axis=0)
     img_LR_np = ift
     img_LR_np3 = pil_to_np(img_LR_np)
