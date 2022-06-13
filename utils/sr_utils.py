@@ -71,7 +71,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     ]
 
     img_LR_pil = img_HR_pil.resize(LR_size, Image.ANTIALIAS)
-    #img_LR_np = pil_to_np(img_LR_pil)
+    img_LR_np2 = pil_to_np(img_LR_pil)
     
     
     ######Changes by Marcos#####
@@ -105,6 +105,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
                 'LR_np': img_LR_np,
                 'HR_pil':  img_HR_pil, 
                 'HR_np': img_HR_np
+                'LR_np_2': img_LR_np2
            }
 
 
