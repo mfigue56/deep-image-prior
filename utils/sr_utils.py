@@ -33,17 +33,6 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
         enforse_div32: if 'CROP' center crops an image, so that its dimensions are divisible by 32.
     '''
     img_orig_pil, img_orig_np = get_image(fname, -1)
-    ######Marcos Changes#######
-    img = Image.open(fname)
-    img = img.convert('P')
-    imgs_arr = []
-
-    for frame in ImageSequence.Iterator(img):
-        imgs_arr.append(np.array(frame.convert('L'))[80:200, 30:150])
-
-    imgs_arr = np.array(imgs_arr)/256
-    im1 = imgs_arr[0]
-    #######Marcos Changed^##########
     
     if imsize != -1:
         img_orig_pil, img_orig_np = get_image(fname, imsize)
@@ -77,12 +66,12 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     ######Changes by Marcos#####
     ft = np.fft.fftshift(np.fft.fft2(img_orig_np)) #img
     C,H,W = (ft.shape)
-    print(H,W,C)
+    
     F = factor  #factor
     h = int(H/F)
     w = int(W/F)
     c = C
-    print(c)
+    
     a =int((H-h)/F)
     b =int((W-w)/F)
     
