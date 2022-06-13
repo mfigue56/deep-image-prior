@@ -77,10 +77,12 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     ######Changes by Marcos#####
     ft = np.fft.fftshift(np.fft.fft2(img_orig_np)) #img
     H,W, C = (ft.shape)
+    print(H,W,C)
     F = factor  #factor
     h = int(H/F)
     w = int(W/F)
     c = int(C/F)
+    print(c)
     a =int((H-h)/F)
     b =int((W-w)/F)
     
