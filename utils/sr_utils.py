@@ -81,6 +81,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     ift = np.abs(np.fft.ifft2(ftcrop)) #inverse transfrom
     #img_LR_np = np.expand_dims(ift, axis=0)
     img_LR_np = ift
+    img_LR_np3 = pil_to_np(img_LR_np)
     #img_LR_pil = np_to_pil(img_LR_np)
     #img_LR_np = pil_to_np(img_LR_pil)
     ######### Changed by Marcos ^#######
@@ -94,7 +95,8 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
                 'LR_np': img_LR_np,
                 'HR_pil':  img_HR_pil, 
                 'HR_np': img_HR_np,
-                'LR_np_2':img_LR_np2
+                'LR_np_2':img_LR_np2,
+                'LR_np_3':img_LR_np3
            }
 
 
