@@ -81,7 +81,7 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
     F = factor  #factor
     h = int(H/F)
     w = int(W/F)
-    c = int(C/F)
+    c = C
     print(c)
     a =int((H-h)/F)
     b =int((W-w)/F)
