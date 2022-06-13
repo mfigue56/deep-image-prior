@@ -104,8 +104,8 @@ def load_LR_HR_imgs_sr(fname, imsize, factor, enforse_div32=None):
                 'LR_pil':  img_LR_pil, 
                 'LR_np': img_LR_np,
                 'HR_pil':  img_HR_pil, 
-                'HR_np': img_HR_np
-                'LR_np_2': img_LR_np2
+                'HR_np': img_HR_np,
+                'LR_np_2':img_LR_np2
            }
 
 
