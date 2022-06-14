@@ -86,7 +86,7 @@ def get_kernel(factor, kernel_type, phase, kernel_width, support=None, sigma=Non
         
     elif kernel_type == 'gauss': 
         assert sigma, 'sigma is not specified'
-        #assert phase != 0.5, 'phase 1/2 for gauss not implemented'
+        assert phase != 0.5, 'phase 1/2 for gauss not implemented'
         
         center = (kernel_width + 1.)/2.
         print(center, kernel_width)
