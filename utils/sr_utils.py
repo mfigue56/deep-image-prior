@@ -104,11 +104,19 @@ def get_baselines(img_LR_pil, img_HR_pil):
 
     img_nearest_pil = img_LR_pil.resize(img_HR_pil.size, Image.NEAREST)
     img_nearest_np = pil_to_np(img_nearest_pil)
+    
+    #Changes
+    img_LRs = img_LR_pil.convert('RGB')
+    img_HRs = img_HR_pil.convert('RGB')
+    
+    img_bicubic_pil2 = img_LRs.resize(img_HRs.size, Image.BICUBIC)
+    img_bicubic_np2 = pil_to_np(img_bicubic_pil2)
 
-    #img_bic_sharp_pil = img_bicubic_pil.filter(PIL.ImageFilter.UnsharpMask())
-    #img_bic_sharp_np = pil_to_np(img_bic_sharp_pil)
+    img_bic_sharp_pil = img_bicubic_pil2.filter(PIL.ImageFilter.UnsharpMask())
+    img_bic_sharp_np = pil_to_np(img_bic_sharp_pil)
+    #End changes
 
-    return img_bicubic_np, img_nearest_np #img_bic_sharp_np,
+    return img_bicubic_np, img_nearest_np, img_bic_sharp_np
 
 
 
