@@ -53,28 +53,19 @@ def radial_alias(phase, Nx, Ny):
 
   return A
   
-  def get_noisy_image_radial(path_to_image,img_np, sigma):
-        imgs_arr = img_np
-        im0 = imgs_arr[0]
-        Nx, Ny = im0.shape
-
-        golden_angle = 2.39996322972865332 #radians
-        golden_angle = 111.24*np.pi/180
-        phases = np.arange(10)*golden_angle
-        
-        A = np.zeros((Nx,Ny))
-        for phase in phases:
-          A += radial_alias(phase, Nx, Ny)
-
-        fim0 = fftshift(fft2(im0))
-
-        fim0[A == 0] = 0.0
-        
-        img0 = np.log(np.abs(fim0))
-        
-        img1 = ifft2(fim0)
-        
-        noisy_image_np = img1[np.newaxis,:,:]
-        
-        
-        return img0, img1, noisy_image_np
+def get_noisy_image_radial(path_to_image,img_np, sigma):
+  imgs_arr = img_np
+  im0 = imgs_arr[0]
+  Nx, Ny = im0.shape
+  golden_angle = 2.39996322972865332 #radians
+  golden_angle = 111.24*np.pi/180
+  phases = np.arange(10)*golden_angle
+  A = np.zeros((Nx,Ny))
+  for phase in phases:
+     A += radial_alias(phase, Nx, Ny)
+  fim0 = fftshift(fft2(im0))
+  fim0[A == 0] = 0.0
+  img0 = np.log(np.abs(fim0))
+  img1 = ifft2(fim0)
+  noisy_image_np = img1[np.newaxis,:,:]      
+  return img0, img1, noisy_image_np
