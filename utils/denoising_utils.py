@@ -24,7 +24,7 @@ def get_noisy_image(path_to_image, img_np, sigma):
     
     img_noisy_np = ift
 
-    #img_noisy_np = np.clip(img_np + np.random.normal(scale=sigma, size=img_np.shape), 0, 1).astype(np.float32)
-    img_noisy_pil = np_to_pil(img_noisy_np)
+    img_noisy = np.clip(img_np + np.random.normal(scale=sigma, size=img_np.shape), 0, 1).astype(np.float32)
+    img_noisy_pil = np_to_pil(img_noisy)
 
     return img_noisy_pil, img_noisy_np
