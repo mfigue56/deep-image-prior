@@ -21,7 +21,7 @@ def get_noisy_image(path_to_image, img_np, sigma):
     noise = np.random.normal(0, .1, ft.shape)
     noisy_signal = ft + noise
     ift = np.abs(np.fft.ifft2(noisy_signal, norm = 'forward')) #inverse transfrom
-    ift - ift.insert(1,0)
+    ift = np.insert(ift,1,0)
     
     img_noisy_np = ift
 
