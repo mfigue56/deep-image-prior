@@ -21,11 +21,11 @@ def get_noisy_image(path_to_image, img_np, sigma):
     noise = np.random.normal(0, .1, ft.shape)
     noisy_signal = ft + noise
     ift = np.abs(np.fft.ifft2(noisy_signal, norm = 'forward')) #inverse transfrom
-    ift = np.insert(ift,1,0)
+    #ift = np.insert(ift,1,0)
     
     img_noisy_np = ift
 
-    img_noisy = np.clip(img_np + np.random.normal(scale=sigma, size=img_np.shape), 0, 1).astype(np.float32)
-    img_noisy_pil = np_to_pil(img_noisy)
+    #img_noisy = np.clip(img_np + np.random.normal(scale=sigma, size=img_np.shape), 0, 1).astype(np.float32)
+    img_noisy_pil = np_to_pil(img_noisy_np)
 
     return img_noisy_pil, img_noisy_np
