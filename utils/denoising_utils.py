@@ -67,5 +67,6 @@ def get_noisy_image_radial(path_to_image,img_np, sigma):
   fim0[A == 0] = 0.0
   img0 = np.log(np.abs(fim0))
   img1 = ifft2(fim0)
-  noisy_image_np = img1[np.newaxis,:,:]      
+  noisy_image_np = img1[np.newaxis,:,:]  
+  noisy_image_np = np.abs(noisy_image_np)
   return img0, img1, noisy_image_np
