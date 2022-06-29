@@ -59,7 +59,7 @@ def get_noisy_image_radial(path_to_image,img_np, sigma):
   Nx, Ny = im0.shape
   golden_angle = 2.39996322972865332 #radians
   golden_angle = 111.24*np.pi/180
-  phases = np.arange(10)*golden_angle
+  phases = np.arange(25)*golden_angle
   A = np.zeros((Nx,Ny))
   for phase in phases:
      A += radial_alias(phase, Nx, Ny)
